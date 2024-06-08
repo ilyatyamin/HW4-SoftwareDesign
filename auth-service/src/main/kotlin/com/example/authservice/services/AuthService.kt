@@ -131,8 +131,25 @@ class AuthService(
         )
     }
 
-    fun getInfo(request : InfoRequest) {
-
+    fun getInfo(request: InfoRequest): StatusInfo<InfoResponse> {
+        if (sessionRepository.existsSessionObjectByToken(request.token)) {
+            val session = sessionRepository.findSessionObjectByToken(request.token)
+            val user = userRepository.findById(session.userId)
+            return StatusInfo(
+                status = HttpStatus.OK,
+                info = InfoResponse(
+                    message = "OK",
+                    userId = user.get().id,
+                    email = user.get().email,
+                    isExpired = tokenService.isValid(request.token, user.get())
+                )
+            )
+        } else {
+            return StatusInfo(
+                status = HttpStatus.BAD_REQUEST,
+                info = InfoResponse(message = "This token doesn't exists.")
+            )
+        }
     }
 
 

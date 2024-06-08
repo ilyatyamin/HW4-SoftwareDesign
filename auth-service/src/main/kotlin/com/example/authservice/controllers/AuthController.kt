@@ -1,10 +1,7 @@
 package com.example.authservice.controllers
 
-import com.example.authservice.dto.AuthRequest
-import com.example.authservice.dto.AuthResponse
+import com.example.authservice.dto.*
 import com.example.authservice.services.AuthService
-import com.example.authservice.dto.RegistrationRequest
-import com.example.authservice.dto.RegistrationResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -23,6 +20,12 @@ class AuthController(private val authService: AuthService) {
     @PostMapping("/login")
     fun login(@RequestBody request : AuthRequest) : ResponseEntity<AuthResponse> {
         val answer = authService.tryToLogin(request)
+        return ResponseEntity.status(answer.status).body(answer.info)
+    }
+
+    @PostMapping("/getInfo")
+    fun getInfo(@RequestBody request: InfoRequest) : ResponseEntity<InfoResponse> {
+        val answer = authService.getInfo(request)
         return ResponseEntity.status(answer.status).body(answer.info)
     }
 }
