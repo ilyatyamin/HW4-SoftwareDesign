@@ -1,5 +1,7 @@
 package com.example.authservice.controllers
 
+import com.example.authservice.dto.AuthRequest
+import com.example.authservice.dto.AuthResponse
 import com.example.authservice.services.AuthService
 import com.example.authservice.dto.RegistrationRequest
 import com.example.authservice.dto.RegistrationResponse
@@ -15,6 +17,12 @@ class AuthController(private val authService: AuthService) {
     @PostMapping("/register")
     fun register(@RequestBody request: RegistrationRequest): ResponseEntity<RegistrationResponse> {
         val answer = authService.registerUser(request)
+        return ResponseEntity.status(answer.status).body(answer.info)
+    }
+
+    @PostMapping("/login")
+    fun login(@RequestBody request : AuthRequest) : ResponseEntity<AuthResponse> {
+        val answer = authService.tryToLogin(request)
         return ResponseEntity.status(answer.status).body(answer.info)
     }
 }
