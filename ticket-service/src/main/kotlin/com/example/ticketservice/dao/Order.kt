@@ -3,7 +3,7 @@ package com.example.ticketservice.dao
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
-@Entity(name = "order")
+@Entity(name = "\"order\"")
 data class Order(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
