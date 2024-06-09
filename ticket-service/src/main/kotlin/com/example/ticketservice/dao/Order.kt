@@ -1,5 +1,6 @@
 package com.example.ticketservice.dao
 
+import com.example.ticketservice.utils.StatusOrder
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -19,7 +20,8 @@ data class Order(
     var toStationId: Int,
 
     @Column(name = "status", nullable = false)
-    var status: Int,
+    @Enumerated(EnumType.ORDINAL)
+    var status: StatusOrder,
 
     @Column(name = "created", nullable = false, columnDefinition = "TIMESTAMP")
     var created: LocalDateTime,

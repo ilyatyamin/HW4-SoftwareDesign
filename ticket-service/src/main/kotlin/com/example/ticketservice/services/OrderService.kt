@@ -4,6 +4,7 @@ import com.example.ticketservice.dao.Order
 import com.example.ticketservice.dto.*
 import com.example.ticketservice.repositories.OrderRepository
 import com.example.ticketservice.repositories.StationRepository
+import com.example.ticketservice.utils.StatusOrder
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -21,7 +22,7 @@ class OrderService(
                 userId = request.aboutUser.userId,
                 fromStationId = request.info.departureId,
                 toStationId = request.info.arrivalId,
-                status = 0,
+                status = StatusOrder.CHECK,
                 created = LocalDateTime.now()
             )
 
