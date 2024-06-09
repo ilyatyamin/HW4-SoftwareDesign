@@ -24,7 +24,8 @@ class AuthController(private val authService: AuthService) {
             ApiResponse(responseCode = "400", description = "The user entered incorrect data: the password or email address did not arrive or entered an incorrect form (one of the fields is null)"),
             ApiResponse(responseCode = "409", description = "User with this data already existed in system.")
         ])
-    fun register(@RequestBody(content = [Content(schema = Schema(implementation = RegistrationRequest::class))])
+    fun register(@org.springframework.web.bind.annotation.RequestBody
+                 @RequestBody(content = [Content(schema = Schema(implementation = RegistrationRequest::class))])
                  request: RegistrationRequest): ResponseEntity<RegistrationResponse> {
         val answer = authService.registerUser(request)
         return ResponseEntity.status(answer.status).body(answer.info)
@@ -40,7 +41,8 @@ class AuthController(private val authService: AuthService) {
             ApiResponse(responseCode = "400", description = "The user entered incorrect data: one of the fields possible null"),
             ApiResponse(responseCode = "403", description = "User with this data is not in the database.")
         ])
-    fun login(@RequestBody(content = [Content(schema = Schema(implementation = AuthRequest::class))])
+    fun login(@org.springframework.web.bind.annotation.RequestBody
+              @RequestBody(content = [Content(schema = Schema(implementation = AuthRequest::class))])
               request: AuthRequest): ResponseEntity<AuthResponse> {
         val answer = authService.tryToLogin(request)
         return ResponseEntity.status(answer.status).body(answer.info)
@@ -55,7 +57,8 @@ class AuthController(private val authService: AuthService) {
             ApiResponse(responseCode = "200", description = "Everything is OK"),
             ApiResponse(responseCode = "403", description = "The received token does not exist")
         ])
-    fun getInfo(@RequestBody(content = [Content(schema = Schema(implementation = InfoRequest::class))])
+    fun getInfo(@org.springframework.web.bind.annotation.RequestBody
+                @RequestBody(content = [Content(schema = Schema(implementation = InfoRequest::class))])
                 request: InfoRequest): ResponseEntity<InfoResponse> {
         val answer = authService.getInfo(request)
         return ResponseEntity.status(answer.status).body(answer.info)
