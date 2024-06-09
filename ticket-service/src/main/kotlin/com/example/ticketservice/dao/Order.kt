@@ -7,28 +7,28 @@ import java.time.LocalDateTime
 data class Order(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id : Long? = null,
+    var id: Long? = null,
 
     @Column(name = "user_id", nullable = false)
-    var userId : Int,
+    var userId: Long?,
 
     @Column(name = "from_station_id", nullable = false)
-    var fromStationId : Int,
+    var fromStationId: Int,
 
     @Column(name = "to_station_id", nullable = false)
-    var toStationId : Int,
+    var toStationId: Int,
 
     @Column(name = "status", nullable = false)
-    var status : Int,
+    var status: Int,
 
     @Column(name = "created", nullable = false, columnDefinition = "TIMESTAMP")
-    var created : LocalDateTime,
+    var created: LocalDateTime,
 
     @OneToOne
     @JoinColumn(name = "from_station_id", insertable = false, updatable = false)
-    val fromStation: Station,
+    val fromStation: Station? = null,
 
     @OneToOne
     @JoinColumn(name = "to_station_id", insertable = false, updatable = false)
-    val toStation: Station
+    val toStation: Station? = null
 )
