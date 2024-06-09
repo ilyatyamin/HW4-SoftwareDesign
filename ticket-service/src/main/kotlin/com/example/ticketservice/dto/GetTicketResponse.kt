@@ -4,5 +4,5 @@ import com.example.ticketservice.dao.Order
 
 data class GetTicketResponse(
     var message : String,
-    var order : Order
+    var order : Order? = null
 )

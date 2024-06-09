@@ -1,8 +1,6 @@
 package com.example.ticketservice.controllers
 
-import com.example.ticketservice.dto.BuyTicketRequest
-import com.example.ticketservice.dto.BuyTicketResponse
-import com.example.ticketservice.dto.RequestInfo
+import com.example.ticketservice.dto.*
 import com.example.ticketservice.services.NetworkService
 import com.example.ticketservice.services.OrderService
 import org.springframework.http.ResponseEntity
@@ -35,5 +33,15 @@ class TicketController(
             )
             ResponseEntity.status(answer.status).body(answer.info)
         }
+    }
+
+
+    @PostMapping("/getTicketInfo")
+    fun getTicketInfo(
+        @RequestBody request: GetTicketRequest,
+        @RequestHeader("Authorization") token: String
+    ): ResponseEntity<GetTicketResponse> {
+        val answer = ticketService.getTicketInfo(request)
+        return ResponseEntity.status(answer.status).body(answer.info)
     }
 }

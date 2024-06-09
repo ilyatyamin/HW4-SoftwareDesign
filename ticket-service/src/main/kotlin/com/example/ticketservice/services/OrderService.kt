@@ -1,10 +1,7 @@
 package com.example.ticketservice.services
 
 import com.example.ticketservice.dao.Order
-import com.example.ticketservice.dto.BuyTicketRequest
-import com.example.ticketservice.dto.BuyTicketResponse
-import com.example.ticketservice.dto.RequestInfo
-import com.example.ticketservice.dto.StatusInfo
+import com.example.ticketservice.dto.*
 import com.example.ticketservice.repositories.OrderRepository
 import com.example.ticketservice.repositories.StationRepository
 import org.springframework.http.HttpStatus
@@ -44,7 +41,23 @@ class OrderService(
         }
     }
 
-    fun getTicketInfo() {
-
+    fun getTicketInfo(request: GetTicketRequest): StatusInfo<GetTicketResponse> {
+        if (orderRepository.existsOrderById(request.id)) {
+            val order = orderRepository.findOrderById(request.id)
+            return StatusInfo(
+                status = HttpStatus.OK,
+                info = GetTicketResponse(
+                    message = "OK",
+                    order = order
+                )
+            )
+        } else {
+            return StatusInfo(
+                status = HttpStatus.NOT_FOUND,
+                info = GetTicketResponse(
+                    message = "Order with this id doesn't exists",
+                )
+            )
+        }
     }
 }
