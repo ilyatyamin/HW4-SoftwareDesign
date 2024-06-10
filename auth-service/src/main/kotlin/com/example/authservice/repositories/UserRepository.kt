@@ -21,4 +21,12 @@ interface UserRepository : JpaRepository<UserObject, Long> {
         @Param("email") email : String,
         @Param("password") password : String
     ) : UserObject
+
+    fun existsUserObjectByEmail(
+        @Param("email") email : String
+    ) : Boolean
+
+    fun existsUserObjectByNickname(
+        @Param("nickname") nickname : String
+    ) : Boolean
 }

@@ -66,10 +66,12 @@ class AuthService(
         )
 
         // Проверим, что такого пользователя ранее не существовало в БД
-        if (userRepository.existsUserObjectByEmailAndNickname(potentialUser.email, potentialUser.nickname)) {
+        if (userRepository.existsUserObjectByEmail(potentialUser.email)
+            || userRepository.existsUserObjectByNickname(potentialUser.nickname)
+        ) {
             return StatusInfo(
                 status = HttpStatus.CONFLICT,
-                info = RegistrationResponse("User with this email and nickname is existed.")
+                info = RegistrationResponse("User with this email or nickname is existed.")
             )
         }
 
