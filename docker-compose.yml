@@ -1,0 +1,45 @@
+services:
+  db-auth:
+    ports:
+      - "90:5432" # 90 - внешний порт, 5432 - внутренний
+    container_name: DatabaseAuthContainer
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+
+  db-ticket:
+    ports:
+      - "5433:5433" # 5433 - внешний порт, 5433 - внутренний
+    expose:
+      - "5433"
+    container_name: DatabaseTicketContainer
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    command: -p 5433
+
+  auth-service:
+    build: auth-service/.
+    container_name: AuthService
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    environment:
+      - SPRING_DATASOURCE_URL = jdbc:postgresql://DatabaseAuthContainer:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+
+  ticket-service:
+    build: ticket-service/.
+    container_name: TicketService
+    ports:
+      - "8081:8081"
+    expose:
+      - "8081"
+    environment:
+      - SPRING_DATASOURCE_URL = jdbc:postgresql://DatabaseTicketContainer:5433/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
