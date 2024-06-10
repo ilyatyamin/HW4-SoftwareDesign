@@ -3,6 +3,7 @@ package com.example.ticketservice.controllers
 import com.example.ticketservice.dto.*
 import com.example.ticketservice.services.NetworkService
 import com.example.ticketservice.services.OrderService
+import com.example.ticketservice.services.ProcessService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
@@ -20,8 +21,14 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/tickets")
 class TicketController(
     private val ticketService: OrderService,
-    private val networkService: NetworkService
+    private val networkService: NetworkService,
+    private val processService: ProcessService
 ) {
+    init {
+        processService.startProcessing()
+    }
+
+
     @PostMapping("/buyTicket")
     @Operation(summary = "Form an order if all data is correct and user is authorized")
     @SecurityRequirement(name = "Bearer Authentication")
