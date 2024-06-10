@@ -25,7 +25,7 @@ class ProcessService(var orderRepository: OrderRepository) {
     private fun threadFunc() {
         while (true) {
             try {
-                val getLst = orderRepository.findOrdersByStatus(StatusOrder.CHECK)
+                val getLst = orderRepository.findOrdersByStatus(1)
                 val randomOrder = getLst.random()
 
                 val id = (0..100).random()

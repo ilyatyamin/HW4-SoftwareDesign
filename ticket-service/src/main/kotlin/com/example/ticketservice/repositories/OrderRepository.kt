@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface OrderRepository : JpaRepository<Order, Long> {
     fun existsOrderById(id : Long) : Boolean
     fun findOrderById(id : Long) : Order
-    fun findOrdersByStatus(status : StatusOrder) : List<Order>
+    fun findOrdersByStatus(status : Int) : List<Order>
 }
