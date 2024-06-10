@@ -22,7 +22,7 @@ class OrderService(
                 userId = request.aboutUser.userId,
                 fromStationId = request.info.departureId,
                 toStationId = request.info.arrivalId,
-                status = StatusOrder.CHECK,
+                status = 1,
                 created = LocalDateTime.now()
             )
 

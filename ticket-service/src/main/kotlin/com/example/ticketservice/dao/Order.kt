@@ -20,8 +20,7 @@ data class Order(
     var toStationId: Int,
 
     @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
-    var status: StatusOrder,
+    var status: Int,
 
     @Column(name = "created", nullable = false, columnDefinition = "TIMESTAMP")
     var created: LocalDateTime,

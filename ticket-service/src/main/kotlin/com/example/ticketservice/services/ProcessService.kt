@@ -30,9 +30,9 @@ class ProcessService(var orderRepository: OrderRepository) {
 
                 val id = (0..100).random()
                 if (id % 2 == 0) {
-                    randomOrder.status = StatusOrder.SUCCESS
+                    randomOrder.status = 2
                 } else {
-                    randomOrder.status = StatusOrder.REJECTION
+                    randomOrder.status = 3
                 }
                 orderRepository.save(randomOrder)
             } catch (ex : Exception) {
