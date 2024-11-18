@@ -1,0 +1,17 @@
+spring:
+  liquibase:
+    enabled: false
+    change-log: classpath:db/changelog/changelog-master.yaml
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate.ddl-auto: update
+    properties.hibernate:
+      show_sql: true
+      format_sql: true
+
+server:
+  port: 8081
